@@ -2,6 +2,7 @@ package com.labmedicine.labmedical.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -18,6 +19,7 @@ public class Paciente extends Pessoa{
 
   private String cuidadosEspecificos;
 
+  @NotNull
   private String contatoEmergencia;
 
   private String convenio;
