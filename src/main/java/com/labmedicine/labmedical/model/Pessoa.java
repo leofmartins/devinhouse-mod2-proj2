@@ -4,10 +4,16 @@ import com.labmedicine.labmedical.model.enums.TipoEstadoCivil;
 import com.labmedicine.labmedical.model.enums.TipoGenero;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @MappedSuperclass
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pessoa {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +23,6 @@ public class Pessoa {
   private String nomeCompleto;
 
   @NotNull
-  @Enumerated(EnumType.ORDINAL)
   private TipoGenero genero;
 
   @NotNull
