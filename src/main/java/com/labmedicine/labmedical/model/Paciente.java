@@ -1,18 +1,23 @@
 package com.labmedicine.labmedical.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors
 public class Paciente extends Pessoa{
 
   private String alergias;
@@ -28,6 +33,12 @@ public class Paciente extends Pessoa{
 
   private Date validadeCarteiraConvenio;
 
-  @OneToOne
+  @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
   private Endereco endereco;
+
+  @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+  private Set<Consulta> consultas;
+
+  @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+  private Set<Exame> exames;
 }
