@@ -40,7 +40,7 @@ public class Endereco {
 
   private String pontoReferencia;
 
-  @OneToOne
-  @JoinColumn(name = "paciente_id")
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "paciente_id", nullable = false)
   private Paciente paciente;
 }

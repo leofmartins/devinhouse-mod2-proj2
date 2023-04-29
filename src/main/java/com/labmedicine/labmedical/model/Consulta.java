@@ -36,10 +36,10 @@ public class Consulta {
   private String dosagemPrecaucoes;
 
   @ManyToOne
-  @JoinColumn(name = "paciente_id")
+  @JoinColumn(name = "paciente_id", nullable = false)
   private Paciente paciente;
 
   @ManyToOne
-  @JoinColumn(name = "medico_id")
+  @JoinColumn(name = "medico_id", nullable = false)
   private Usuario medico;
 }
