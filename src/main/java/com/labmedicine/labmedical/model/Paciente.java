@@ -37,12 +37,10 @@ public class Paciente extends Pessoa{
   private Endereco endereco;
 
   @OneToMany(mappedBy = "paciente",
-            fetch = FetchType.LAZY,
             cascade = {CascadeType.REMOVE})
   private Set<Consulta> consultas = new HashSet<>();
 
   @OneToMany(mappedBy = "paciente",
-            fetch = FetchType.LAZY,
             cascade = {CascadeType.REMOVE})
   private Set<Exame> exames = new HashSet<>();
 }
