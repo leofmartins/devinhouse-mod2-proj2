@@ -23,7 +23,11 @@ public class PacienteController {
   private EnderecoRepository enderecoRepository;
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<Paciente> postPaciente(@RequestBody @Valid Paciente paciente) {
+  public ResponseEntity<?> postPaciente(@RequestBody @Valid Paciente paciente) {
+    Long enderecoId = paciente.getEndereco().getId();
+    if (enderecoRepository.findById(enderecoId).isEmpty())
+      return new ResponseEntity<>("ERRO: Id informado não corresponde a nenhum endereço cadastrado." +
+              " Verifique e tente novamente.", HttpStatus.BAD_REQUEST);
     try {
       if (pacienteRepository.findByCpf(paciente.getCpf()).isEmpty()) {
         Paciente pacienteCadastrado = pacienteRepository.save(paciente);
