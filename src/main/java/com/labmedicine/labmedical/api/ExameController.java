@@ -33,9 +33,11 @@ public class ExameController {
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
-  public ResponseEntity<?> putExame(@PathVariable Long id, @RequestBody @Valid Exame exameNovosDados) {
+  public ResponseEntity<?> putExame(@PathVariable Long id,
+                                    @RequestBody @Valid Exame exameNovosDados) {
     if (exameRepository.findById(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("ERRO: Id do exame informado não encontrado.",
+              HttpStatus.NOT_FOUND);
     Exame exameEmAtualizacao = exameRepository.findById(id).orElseThrow(RuntimeException::new);
     List<String> camposManter = Arrays.asList("id", "dataHoraExame");
     BeanUtils.copyProperties(
@@ -54,7 +56,8 @@ public class ExameController {
   @GetMapping(path = "/{id}")
   public ResponseEntity<?> getExame(@PathVariable Long id) {
     if (exameRepository.findById(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("ERRO: Id de exame informado não encontrado.",
+              HttpStatus.NOT_FOUND);
     Exame examePesquisado = exameRepository.findById(id).orElseThrow(RuntimeException::new);
     return new ResponseEntity<>(examePesquisado, HttpStatus.OK);
   }
@@ -62,8 +65,8 @@ public class ExameController {
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteExame(@PathVariable Long id) {
     if (exameRepository.findById(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("ERRO: Id de exame informado não encontrado.", HttpStatus.NOT_FOUND);
     exameRepository.delete(exameRepository.findById(id).orElseThrow(RuntimeException::new));
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>("Exame excluído com sucesso.", HttpStatus.NO_CONTENT);
   }
 }
