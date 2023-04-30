@@ -27,23 +27,25 @@ public class UsuarioController {
   }
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) {
+  public ResponseEntity<?> postUsuario(@RequestBody @Valid Usuario usuario) {
     try {
       if (usuarioRepository.findByCpf(usuario.getCpf()).isEmpty()) {
-        Usuario _usuario = usuarioRepository.save(usuario);
-        return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
+        Usuario usuarioCadastrado = usuarioRepository.save(usuario);
+        return new ResponseEntity<>(usuarioCadastrado, HttpStatus.CREATED);
       }
-      return new ResponseEntity<>(HttpStatus.CONFLICT);
+      return new ResponseEntity<>("ERRO: Já existe um usuário com o CPF informado.",
+              HttpStatus.CONFLICT);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("ERRO: Dados inválidos. Verifique e tente novamente.",
+              HttpStatus.BAD_REQUEST);
     }
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
-  public ResponseEntity<Usuario> putUsuario(@PathVariable Long id,
+  public ResponseEntity<?> putUsuario(@PathVariable Long id,
                                             @RequestBody @Valid Usuario usuarioAtualizado) {
     if (usuarioRepository.findById(id).isEmpty()) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("ERRO: Id de usuário não encontrado", HttpStatus.NOT_FOUND);
     }
     Usuario usuarioAtualizar = usuarioRepository.findById(id).orElseThrow();
     List<String> campoManter = Arrays.asList("id", "cpf", "rg", "senha");
@@ -54,19 +56,21 @@ public class UsuarioController {
       usuarioRepository.save(usuarioAtualizar);
       return new ResponseEntity<>(usuarioAtualizar, HttpStatus.OK);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("ERRO: Dados inválidos. Verifique e tente novamente.",
+              HttpStatus.BAD_REQUEST);
     }
   }
 
   @PutMapping(path = "/{id}/senha", consumes = "application/json")
-  public ResponseEntity<Usuario> putSenha(@PathVariable Long id,
+  public ResponseEntity<?> putSenha(@PathVariable Long id,
                                           @RequestBody @Valid Usuario pacienteDadosAtualizados) {
     if (pacienteDadosAtualizados.getSenha().length() < 8) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("ERRO: A senha deve ter pelo menos 8 caracteres.",
+              HttpStatus.BAD_REQUEST);
     }
 
     if (usuarioRepository.findById(id).isEmpty()) {
-      return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return  new ResponseEntity<>("ERRO: Id de usuário não encontrado.", HttpStatus.NOT_FOUND);
     }
 
     Usuario usuarioAtualizar = usuarioRepository.findById(id).orElseThrow();
