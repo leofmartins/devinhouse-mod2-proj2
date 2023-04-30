@@ -22,7 +22,7 @@ public class ExameController {
   private ExameRepository exameRepository;
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<?> postExame(@RequestBody Exame exame) {
+  public ResponseEntity<?> postExame(@RequestBody @Valid Exame exame) {
     exame.setDataHoraExame(new Date());
     try {
       Exame exameSalvo = exameRepository.save(exame);

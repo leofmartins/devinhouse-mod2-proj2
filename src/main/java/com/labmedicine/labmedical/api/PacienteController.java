@@ -2,6 +2,7 @@ package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Paciente;
 import com.labmedicine.labmedical.repositories.PacienteRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class PacienteController {
   private PacienteRepository pacienteRepository;
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<Paciente> postPaciente(@RequestBody Paciente paciente) {
+  public ResponseEntity<Paciente> postPaciente(@RequestBody @Valid Paciente paciente) {
     try {
       if (pacienteRepository.findByCpf(paciente.getCpf()).isEmpty()) {
         Paciente pacienteCadastrado = pacienteRepository.save(paciente);
@@ -34,7 +35,7 @@ public class PacienteController {
 
   @PutMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<Paciente> putPaciente(@PathVariable Long id,
-                                              @RequestBody Paciente pacienteAtualizado) {
+                                              @RequestBody @Valid Paciente pacienteAtualizado) {
     if (pacienteRepository.findById(id).isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

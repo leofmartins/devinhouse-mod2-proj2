@@ -22,7 +22,7 @@ public class ConsultaController {
   private ConsultaRepository consultaRepository;
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<?> postConsulta(@RequestBody Consulta consulta) {
+  public ResponseEntity<?> postConsulta(@RequestBody @Valid Consulta consulta) {
     try {
       Consulta consultaSalva = consultaRepository.save(consulta);
       return new ResponseEntity<>(consultaSalva, HttpStatus.CREATED);

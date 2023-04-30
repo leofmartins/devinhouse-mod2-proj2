@@ -2,6 +2,7 @@ package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Usuario;
 import com.labmedicine.labmedical.repositories.UsuarioRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class UsuarioController {
   }
 
   @PostMapping(consumes = "application/json")
-  public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario usuario) {
+  public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) {
     try {
       if (usuarioRepository.findByCpf(usuario.getCpf()).isEmpty()) {
         Usuario _usuario = usuarioRepository.save(usuario);
@@ -40,7 +41,7 @@ public class UsuarioController {
 
   @PutMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<Usuario> putUsuario(@PathVariable Long id,
-                                            @RequestBody Usuario usuarioAtualizado) {
+                                            @RequestBody @Valid Usuario usuarioAtualizado) {
     if (usuarioRepository.findById(id).isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -59,7 +60,7 @@ public class UsuarioController {
 
   @PutMapping(path = "/{id}/senha", consumes = "application/json")
   public ResponseEntity<Usuario> putSenha(@PathVariable Long id,
-                                          @RequestBody Usuario usuarioAtualizado) {
+                                          @RequestBody @Valid Usuario usuarioAtualizado) {
     if (usuarioAtualizado.getSenha().length() < 8) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
