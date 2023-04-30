@@ -75,7 +75,7 @@ public class PacienteController {
   }
 
   @DeleteMapping(path = "/{id}")
-  public ResponseEntity<Paciente> deletePaciente(@PathVariable Long id) {
+  public ResponseEntity<?> deletePaciente(@PathVariable Long id) {
     if (pacienteRepository.findById(id).isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     Paciente paciente = pacienteRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -83,6 +83,7 @@ public class PacienteController {
       pacienteRepository.delete(paciente);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>("ERRO: Paciente possui exame ou consulta. " +
+            "Não pode ser excluído.", HttpStatus.BAD_REQUEST);
   }
 }
