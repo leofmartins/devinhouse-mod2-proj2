@@ -23,8 +23,8 @@ public class PacienteController {
   public ResponseEntity<Paciente> postPaciente(@RequestBody Paciente paciente) {
     try {
       if (pacienteRepository.findByCpf(paciente.getCpf()).isEmpty()) {
-        pacienteRepository.save(paciente);
-        return new ResponseEntity<>(paciente, HttpStatus.CREATED);
+        Paciente pacienteCadastrado = pacienteRepository.save(paciente);
+        return new ResponseEntity<>(pacienteCadastrado, HttpStatus.CREATED);
       }
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     } catch (Exception e) {
