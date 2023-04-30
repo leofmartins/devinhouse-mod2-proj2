@@ -31,9 +31,8 @@ public class Paciente extends Pessoa{
 
   private Date validadeCarteiraConvenio;
 
-  @OneToOne(mappedBy = "paciente",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.REMOVE})
+  @OneToOne(cascade = {CascadeType.REMOVE})
+  @JoinColumn(name = "endereco_id")
   private Endereco endereco;
 
   @OneToMany(mappedBy = "paciente",

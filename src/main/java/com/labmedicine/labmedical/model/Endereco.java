@@ -1,5 +1,6 @@
 package com.labmedicine.labmedical.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class Endereco {
 
   private String pontoReferencia;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "paciente_id", nullable = false)
+  @OneToOne(mappedBy = "endereco")
+  @JsonIgnore
   private Paciente paciente;
 }
