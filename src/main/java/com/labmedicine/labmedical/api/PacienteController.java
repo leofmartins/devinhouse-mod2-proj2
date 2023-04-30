@@ -35,12 +35,12 @@ public class PacienteController {
       }
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
-  public ResponseEntity<Paciente> putPaciente(@PathVariable Long id,
+  public ResponseEntity<?> putPaciente(@PathVariable Long id,
                                               @RequestBody @Valid Paciente pacienteDadosAtualizado) {
     if (pacienteRepository.findById(id).isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +54,7 @@ public class PacienteController {
       Paciente pacienteAtualizado = pacienteRepository.save(pacienteAtualizar);
       return new ResponseEntity<>(pacienteAtualizado, HttpStatus.OK);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -70,8 +70,8 @@ public class PacienteController {
   public ResponseEntity<Paciente> getPacienteById(@PathVariable Long id) {
     if (pacienteRepository.findById(id).isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    Paciente _paciente = pacienteRepository.findById(id).orElseThrow();
-    return new ResponseEntity<>(_paciente, HttpStatus.OK);
+    Paciente paciente = pacienteRepository.findById(id).orElseThrow();
+    return new ResponseEntity<>(paciente, HttpStatus.OK);
   }
 
   @DeleteMapping(path = "/{id}")
