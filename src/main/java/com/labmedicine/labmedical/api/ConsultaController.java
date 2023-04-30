@@ -4,7 +4,6 @@ import com.labmedicine.labmedical.model.Consulta;
 import com.labmedicine.labmedical.repositories.ConsultaRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +31,10 @@ public class ConsultaController {
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
-  public ResponseEntity<Consulta> putConsulta(@RequestBody @Valid Consulta consultaRecebida,
+  public ResponseEntity<?> putConsulta(@RequestBody @Valid Consulta consultaRecebida,
                                               @PathVariable("id") Long id) {
     if (consultaRepository.findById(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("ERRO: Id de consulta não encontrado.", HttpStatus.NOT_FOUND);
     List<String> camposManter = Arrays.asList("id", "dataHoraConsulta");
     Consulta consultaAtualizar = consultaRepository.findById(id).orElseThrow();
     BeanUtils.copyProperties(
@@ -47,7 +46,8 @@ public class ConsultaController {
       Consulta consultaAtualizada = consultaRepository.save(consultaAtualizar);
       return new ResponseEntity<>(consultaAtualizada, HttpStatus.OK);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("ERRO: Verifique os dados e tente novamente.",
+              HttpStatus.BAD_REQUEST);
     }
   }
 
