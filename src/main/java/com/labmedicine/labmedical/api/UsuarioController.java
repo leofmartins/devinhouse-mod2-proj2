@@ -60,8 +60,8 @@ public class UsuarioController {
 
   @PutMapping(path = "/{id}/senha", consumes = "application/json")
   public ResponseEntity<Usuario> putSenha(@PathVariable Long id,
-                                          @RequestBody @Valid Usuario usuarioAtualizado) {
-    if (usuarioAtualizado.getSenha().length() < 8) {
+                                          @RequestBody @Valid Usuario pacienteDadosAtualizados) {
+    if (pacienteDadosAtualizados.getSenha().length() < 8) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -70,8 +70,8 @@ public class UsuarioController {
     }
 
     Usuario usuarioAtualizar = usuarioRepository.findById(id).orElseThrow();
-    usuarioAtualizar.setSenha(usuarioAtualizado.getSenha());
-    usuarioRepository.save(usuarioAtualizar);
-    return new ResponseEntity<>(usuarioAtualizar, HttpStatus.OK);
+    usuarioAtualizar.setSenha(pacienteDadosAtualizados.getSenha());
+    Usuario usuarioAtualizado = usuarioRepository.save(usuarioAtualizar);
+    return new ResponseEntity<>(usuarioAtualizado, HttpStatus.OK);
   }
 }

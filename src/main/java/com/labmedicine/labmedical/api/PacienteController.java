@@ -1,6 +1,7 @@
 package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Paciente;
+import com.labmedicine.labmedical.repositories.EnderecoRepository;
 import com.labmedicine.labmedical.repositories.PacienteRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class PacienteController {
 
   private PacienteRepository pacienteRepository;
+  private EnderecoRepository enderecoRepository;
 
   @PostMapping(consumes = "application/json")
   public ResponseEntity<Paciente> postPaciente(@RequestBody @Valid Paciente paciente) {
@@ -35,18 +37,18 @@ public class PacienteController {
 
   @PutMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<Paciente> putPaciente(@PathVariable Long id,
-                                              @RequestBody @Valid Paciente pacienteAtualizado) {
+                                              @RequestBody @Valid Paciente pacienteDadosAtualizado) {
     if (pacienteRepository.findById(id).isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     Paciente pacienteAtualizar = pacienteRepository.findById(id).orElseThrow();
     List<String> campoManter = Arrays.asList("id", "rg", "cpf", "endereco", "consultas", "exames");
-    BeanUtils.copyProperties(pacienteAtualizado,
+    BeanUtils.copyProperties(pacienteDadosAtualizado,
         pacienteAtualizar,
         campoManter.toArray(new String[0]));
     try {
-      pacienteRepository.save(pacienteAtualizar);
-      return new ResponseEntity<>(pacienteAtualizar, HttpStatus.OK);
+      Paciente pacienteAtualizado = pacienteRepository.save(pacienteAtualizar);
+      return new ResponseEntity<>(pacienteAtualizado, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
