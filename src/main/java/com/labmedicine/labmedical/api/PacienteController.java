@@ -26,9 +26,8 @@ public class PacienteController {
   public ResponseEntity<?> postPaciente(@RequestBody @Valid Paciente paciente) {
     Long enderecoId = paciente.getEndereco().getId();
     if (enderecoRepository.findById(enderecoId).isEmpty())
-      return new ResponseEntity<>("Id informado não corresponde a nenhum endereço cadastrado." +
+      return new ResponseEntity<>("ERRO: Id informado não corresponde a nenhum endereço cadastrado." +
               " Verifique e tente novamente.", HttpStatus.BAD_REQUEST);
-
     try {
       if (pacienteRepository.findByCpf(paciente.getCpf()).isEmpty()) {
         Paciente pacienteCadastrado = pacienteRepository.save(paciente);
@@ -36,12 +35,12 @@ public class PacienteController {
       }
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
-  public ResponseEntity<Paciente> putPaciente(@PathVariable Long id,
+  public ResponseEntity<?> putPaciente(@PathVariable Long id,
                                               @RequestBody @Valid Paciente pacienteDadosAtualizado) {
     if (pacienteRepository.findById(id).isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -55,7 +54,7 @@ public class PacienteController {
       Paciente pacienteAtualizado = pacienteRepository.save(pacienteAtualizar);
       return new ResponseEntity<>(pacienteAtualizado, HttpStatus.OK);
     } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -71,12 +70,12 @@ public class PacienteController {
   public ResponseEntity<Paciente> getPacienteById(@PathVariable Long id) {
     if (pacienteRepository.findById(id).isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    Paciente _paciente = pacienteRepository.findById(id).orElseThrow();
-    return new ResponseEntity<>(_paciente, HttpStatus.OK);
+    Paciente paciente = pacienteRepository.findById(id).orElseThrow();
+    return new ResponseEntity<>(paciente, HttpStatus.OK);
   }
 
   @DeleteMapping(path = "/{id}")
-  public ResponseEntity<Paciente> deletePaciente(@PathVariable Long id) {
+  public ResponseEntity<?> deletePaciente(@PathVariable Long id) {
     if (pacienteRepository.findById(id).isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     Paciente paciente = pacienteRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -84,6 +83,7 @@ public class PacienteController {
       pacienteRepository.delete(paciente);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>("ERRO: Paciente possui exame ou consulta. " +
+            "Não pode ser excluído.", HttpStatus.BAD_REQUEST);
   }
 }
