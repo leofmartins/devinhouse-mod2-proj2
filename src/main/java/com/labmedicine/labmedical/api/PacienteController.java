@@ -1,7 +1,9 @@
 package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Paciente;
+import com.labmedicine.labmedical.repositories.ConsultaRepository;
 import com.labmedicine.labmedical.repositories.EnderecoRepository;
+import com.labmedicine.labmedical.repositories.ExameRepository;
 import com.labmedicine.labmedical.repositories.PacienteRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,8 @@ public class PacienteController {
 
   private PacienteRepository pacienteRepository;
   private EnderecoRepository enderecoRepository;
+  private ConsultaRepository consultaRepository;
+  private ExameRepository exameRepository;
 
   @PostMapping(consumes = "application/json")
   public ResponseEntity<?> postPaciente(@RequestBody @Valid Paciente paciente) {
@@ -77,11 +81,13 @@ public class PacienteController {
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deletePaciente(@PathVariable Long id) {
     if (pacienteRepository.findById(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    Paciente paciente = pacienteRepository.findById(id).orElseThrow(RuntimeException::new);
-    if (paciente.getConsultas().isEmpty() && paciente.getExames().isEmpty()) {
-      pacienteRepository.delete(paciente);
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      return new ResponseEntity<>("ERRO: Paciente não encontrado.", HttpStatus.NOT_FOUND);
+    Paciente pacienteDeletar = pacienteRepository.findById(id).orElseThrow(RuntimeException::new);
+    boolean temConsulta = !pacienteDeletar.getConsultas().isEmpty();
+    boolean temExame = !pacienteDeletar.getExames().isEmpty();
+    if (!temConsulta && !temExame) {
+      pacienteRepository.delete(pacienteDeletar);
+      return new ResponseEntity<>("Paciente excluído com sucesso.", HttpStatus.NO_CONTENT);
     }
     return new ResponseEntity<>("ERRO: Paciente possui exame ou consulta. " +
             "Não pode ser excluído.", HttpStatus.BAD_REQUEST);

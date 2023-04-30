@@ -9,8 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface PacienteRepository extends
-    PagingAndSortingRepository<Paciente, Long>,
-    CrudRepository<Paciente, Long>,
     JpaRepository<Paciente, Long> {
   List<Paciente> findByNomeCompletoContains(String nomeCompleto);
   List<Paciente> findByCpf(String cpf);
