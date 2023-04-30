@@ -2,6 +2,8 @@ package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Consulta;
 import com.labmedicine.labmedical.repositories.ConsultaRepository;
+import com.labmedicine.labmedical.repositories.PacienteRepository;
+import com.labmedicine.labmedical.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -19,9 +21,16 @@ import java.util.List;
 public class ConsultaController {
 
   private ConsultaRepository consultaRepository;
+  private UsuarioRepository usuarioRepository;
+  private PacienteRepository pacienteRepository;
 
   @PostMapping(consumes = "application/json")
   public ResponseEntity<?> postConsulta(@RequestBody @Valid Consulta consulta) {
+    Long medicoId = consulta.getMedico().getId();
+    Long pacienteId = consulta.getPaciente().getId();
+    if (!usuarioRepository.existsById(medicoId) || !pacienteRepository.existsById(pacienteId))
+      return new ResponseEntity<>("ERRO: Id do médico ou id do usuário não encontrado. " +
+              "Verifique e tente novamente.", HttpStatus.BAD_REQUEST);
     try {
       Consulta consultaSalva = consultaRepository.save(consulta);
       return new ResponseEntity<>(consultaSalva, HttpStatus.CREATED);

@@ -2,6 +2,8 @@ package com.labmedicine.labmedical.api;
 
 import com.labmedicine.labmedical.model.Exame;
 import com.labmedicine.labmedical.repositories.ExameRepository;
+import com.labmedicine.labmedical.repositories.PacienteRepository;
+import com.labmedicine.labmedical.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -20,9 +22,16 @@ import java.util.List;
 public class ExameController {
 
   private ExameRepository exameRepository;
+  private UsuarioRepository usuarioRepository;
+  private PacienteRepository pacienteRepository;
 
   @PostMapping(consumes = "application/json")
   public ResponseEntity<?> postExame(@RequestBody @Valid Exame exame) {
+    Long medicoId = exame.getMedico().getId();
+    Long pacienteId = exame.getPaciente().getId();
+    if (!usuarioRepository.existsById(medicoId) || !pacienteRepository.existsById(pacienteId))
+      return new ResponseEntity<>("ERRO: Id do médico ou id do usuário não encontrado. " +
+              "Verifique e tente novamente.", HttpStatus.BAD_REQUEST);
     exame.setDataHoraExame(new Date());
     try {
       Exame exameSalvo = exameRepository.save(exame);
