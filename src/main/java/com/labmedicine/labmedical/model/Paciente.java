@@ -1,5 +1,6 @@
 package com.labmedicine.labmedical.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -37,9 +38,11 @@ public class Paciente extends Pessoa{
 
   @OneToMany(mappedBy = "paciente",
             cascade = {CascadeType.REMOVE})
+  @JsonIgnore
   private Set<Consulta> consultas = new HashSet<>();
 
   @OneToMany(mappedBy = "paciente",
             cascade = {CascadeType.REMOVE})
+  @JsonIgnore
   private Set<Exame> exames = new HashSet<>();
 }
