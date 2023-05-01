@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "e61293d8-a35b-4646-b29d-433eb2aa3fca",
+		"name": "Estatísticas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26512390"
+	},
+	"item": [
+		{
+			"name": "Obtém Estatísticas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/estatisticas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"estatisticas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

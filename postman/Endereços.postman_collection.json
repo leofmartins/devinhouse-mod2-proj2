@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "d46db934-3134-41a8-99c5-ffef380f55b0",
+		"name": "Endereços",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26512390"
+	},
+	"item": [
+		{
+			"name": "Cadastra Endereço",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cep\": \"88880000\",\r\n    \"cidade\": \"Cidadezinha\",\r\n    \"estado\": \"DT\",\r\n    \"logradouro\": \"Rua Azul\",\r\n    \"numero\": 123,\r\n    \"complemento\": null,\r\n    \"bairro\": \"Felicidade\",\r\n    \"pontoReferencia\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/enderecos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"enderecos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lists Endereços",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/enderecos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"enderecos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

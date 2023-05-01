@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "f4f769ea-5560-43ec-8462-6f104b842abd",
+		"name": "Usuário",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26512390"
+	},
+	"item": [
+		{
+			"name": "Cadastra Usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro da Silva\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-09-10\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"cadastroCRM\": \"132435\",\r\n    \"especializacao\": \"CLINICO_GERAL\",\r\n    \"senha\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Usuários",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Usuário",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro da Silva\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-11-09\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"cadastroCRM\": \"132435\",\r\n    \"especializacao\": \"CLINICO_GERAL\",\r\n    \"senha\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Senha Usuário",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro da Silva\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-09-11\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"cadastroCRM\": \"132435\",\r\n    \"especializacao\": \"CLINICO_GERAL\",\r\n    \"senha\": \"87654321\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/1/senha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"1",
+						"senha"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

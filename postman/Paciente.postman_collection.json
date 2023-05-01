@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "62cfeac3-7b41-4a8b-8bd0-21ffe53024fb",
+		"name": "Paciente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26512390"
+	},
+	"item": [
+		{
+			"name": "Cadastra Paciente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro da Silva\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-09-10\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"alergias\": \"fumaça\",\r\n    \"cuidadosEspecificos\": \"nenhum\",\r\n    \"contatoEmergencia\": \"Lúcia (48) 98888-9999\",\r\n    \"convenio\": \"Saudável\",\r\n    \"numeroCarteiraConvenio\": \"534231\",\r\n    \"validadeCarteiraConvenio\": \"2023-09-10\",\r\n    \"endereco\": { \"id\": 1 }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Paciente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro de Souza\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-09-10\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"alergias\": \"fumaça\",\r\n    \"cuidadosEspecificos\": \"nenhum\",\r\n    \"contatoEmergencia\": \"Lúcia (48) 98888-9999\",\r\n    \"convenio\": \"Saudável\",\r\n    \"numeroCarteiraConvenio\": \"534231\",\r\n    \"validadeCarteiraConvenio\": \"2023-09-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Pacientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Pacientes Pelo Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exlusão Pacientes Pelo Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastra Paciente 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Pedro da Silva\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"dataNascimento\": \"2000-09-10\",\r\n    \"cpf\": \"22233344455\",\r\n    \"rg\": \"1234567\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"telefone\": \"48999998888\",\r\n    \"email\": \"pedrosilva@email.com\",\r\n    \"naturalidade\": \"Cidadezinha\",\r\n    \"alergias\": \"fumaça\",\r\n    \"cuidadosEspecificos\": \"nenhum\",\r\n    \"contatoEmergencia\": \"Lúcia (48) 98888-9999\",\r\n    \"convenio\": \"Saudável\",\r\n    \"numeroCarteiraConvenio\": \"534231\",\r\n    \"validadeCarteiraConvenio\": \"2023-09-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exlusão Pacientes 2 Pelo Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
